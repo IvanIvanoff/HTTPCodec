@@ -47,10 +47,14 @@ int main()
         bool req = phrase_parse(iterReq, endReq, httpRequestGrammar, boost::spirit::qi::ascii::blank, httpRequestHeader);
         bool res = phrase_parse(iterRes, endRes, httpResponseGrammar, boost::spirit::qi::ascii::blank, httpResponseHeader);
 
-        if ((!req || iterReq != endReq) ||
-            (!res || iterRes != endRes)) {
-            std::cout << "Parsing failed\n";
+        if(!req || iterReq != endReq){
+            std::cout << "Parsing request failed\n";
             std::cout << "stopped at: \"" << std::string(iterReq, endReq) << "\n";
+            break;
+        }
+        if(!res || iterRes != endRes){
+            std::cout << "Parsing response failed\n";
+            std::cout << "stopped at: \"" << std::string(iterRes, endRes) << "\n";
             break;
         }
     }
